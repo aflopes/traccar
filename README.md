@@ -1,5 +1,5 @@
 # [Traccar](https://www.traccar.org)
-[![Build Status](https://travis-ci.org/tananaev/traccar.svg?branch=master)](https://travis-ci.org/tananaev/traccar)
+[![Build Status](https://travis-ci.org/aflopes/traccar.svg?branch=master)](https://travis-ci.org/aflopes/traccar)
 
 ## Contacts
 

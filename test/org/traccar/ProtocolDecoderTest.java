@@ -2,10 +2,12 @@ package org.traccar;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
+import org.jboss.netty.channel.Channel;
 import org.jboss.netty.handler.codec.http.DefaultHttpRequest;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpVersion;
 import org.junit.Assert;
+import org.mockito.Mockito;
 import org.traccar.database.IdentityManager;
 import org.traccar.model.Device;
 import org.traccar.model.Position;
@@ -62,7 +64,7 @@ public class ProtocolDecoderTest {
     }
 
     protected void verifyPosition(BaseProtocolDecoder decoder, Object object, Position position) throws Exception {
-        verifyDecodedPosition(decoder.decode(null, null, object), position);
+        verifyDecodedPosition(decoder.decode(Mockito.mock(Channel.class), null, object), position);
     }
 
     protected void verifyPositions(BaseProtocolDecoder decoder, Object object) throws Exception {

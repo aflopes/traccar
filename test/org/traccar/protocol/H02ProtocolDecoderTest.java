@@ -15,7 +15,11 @@ public class H02ProtocolDecoderTest extends ProtocolDecoderTest {
         verifyPosition(decoder, buffer(
                 "*HQ,355488020119695,V1,050418,,2827.61232,N,07703.84822,E,0.00,0,031015,FFFEFBFF#"),
                 position("2015-10-03 05:04:18.000", false, 28.46021, 77.06414));
-
+        
+        verifyPosition(decoder, buffer(
+                "*HQ,355488020119695,VI1,050418,,2827.61232,N,07703.84822,E,0.00,0,031015,FFFEFBFF#"),
+                position("2015-10-03 05:04:18.000", false, 28.46021, 77.06414));
+        
         verifyPosition(decoder, buffer(
                 "*HQ,1451316409,V1,030149,A,-23-29.0095,S,-46-51.5852,W,2.4,065,070315,FFFFFFFF#"),
                 position("2015-03-07 03:01:49.000", true, -23.48349, -46.85975));
@@ -110,18 +114,4 @@ public class H02ProtocolDecoderTest extends ProtocolDecoderTest {
 
     }
     
-    @Test
-    public void testTest(){
-    	
-    	H02ProtocolDecoder decoder = new H02ProtocolDecoder(new H02Protocol());
-    	
-    	try {
-			decoder.decode(null, null, buffer("*HQ,123456789012345,VL1,155850,A,5214.5346,N,2117.4683,E,0.00,270.90,131012,ffffffff,000000,000000,000000,000000#"));
-		} catch (Exception e) {
-			Assert.assertTrue(e instanceof NullPointerException);
-			return;
-		}
-    	Assert.fail();
-    }
-
 }
