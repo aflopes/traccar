@@ -117,4 +117,13 @@ public class Position extends Event implements Factory {
         this.address = address;
     }
 
+    private String version;
+    
+    public String getVersion() {
+		return version;
+	}
+    
+    public void setVersion(String version) {
+		this.version = version;
+	}
 }

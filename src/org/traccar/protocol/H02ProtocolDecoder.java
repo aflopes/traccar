@@ -118,7 +118,7 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
             .text("*")
             .expression("..,")                   // manufacturer
             .number("(d+),")                     // imei
-            .number("Vd,")                       // version?
+            .number("(.*),")                       // version?
             .any()
             .number("(dd)(dd)(dd),")             // time
             .expression("([AV])?,")              // validity
@@ -146,6 +146,7 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
         if (!identify(parser.next(), channel)) {
             return null;
         }
+        position.setVersion(parser.next());
         position.setDeviceId(getDeviceId());
 
         DateBuilder dateBuilder = new DateBuilder()
@@ -164,7 +165,11 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
         position.setTime(dateBuilder.getDate());
 
         processStatus(position, parser.nextLong(16));
-
+        
+        if("VL1".equals(position.getVersion())){
+        	channel.write("http://maps.google.pt?q="+position.getLatitude()+","+position.getLongitude());
+        }
+        
         return position;
     }
 
