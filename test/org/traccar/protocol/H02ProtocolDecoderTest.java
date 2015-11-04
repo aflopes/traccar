@@ -1,6 +1,7 @@
 package org.traccar.protocol;
 
 import org.jboss.netty.buffer.ChannelBuffers;
+import org.junit.Assert;
 import org.junit.Test;
 import org.traccar.ProtocolDecoderTest;
 
@@ -107,6 +108,20 @@ public class H02ProtocolDecoderTest extends ProtocolDecoderTest {
         verifyPosition(decoder, binary(
                 "24971305007205201916101533335008000073206976000000effffbffff000252776566060000000000000000000049"));
 
+    }
+    
+    @Test
+    public void testTest(){
+    	
+    	H02ProtocolDecoder decoder = new H02ProtocolDecoder(new H02Protocol());
+    	
+    	try {
+			decoder.decode(null, null, buffer("*HQ,123456789012345,VL1,155850,A,5214.5346,N,2117.4683,E,0.00,270.90,131012,ffffffff,000000,000000,000000,000000#"));
+		} catch (Exception e) {
+			Assert.assertTrue(e instanceof NullPointerException);
+			return;
+		}
+    	Assert.fail();
     }
 
 }

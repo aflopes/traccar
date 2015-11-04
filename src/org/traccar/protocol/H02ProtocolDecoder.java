@@ -118,7 +118,7 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
             .text("*")
             .expression("..,")                   // manufacturer
             .number("(d+),")                     // imei
-            .number("(.*),")                       // version?
+            .number("Vd,")                       // version?
             .any()
             .number("(dd)(dd)(dd),")             // time
             .expression("([AV])?,")              // validity
@@ -134,7 +134,11 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
             .compile();
 
     private Position decodeText(String sentence, Channel channel) {
-
+    	String[] split = sentence.split(",");
+		if("VL1".equals(split[2])){
+        	channel.write("http://maps.google.pt?q="+split[5]+","+split[7]);
+        }
+    	
         Parser parser = new Parser(PATTERN, sentence);
         if (!parser.matches()) {
             return null;
@@ -146,7 +150,6 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
         if (!identify(parser.next(), channel)) {
             return null;
         }
-        position.setVersion(parser.next());
         position.setDeviceId(getDeviceId());
 
         DateBuilder dateBuilder = new DateBuilder()
@@ -166,9 +169,9 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
 
         processStatus(position, parser.nextLong(16));
         
-        if("VL1".equals(position.getVersion())){
-        	channel.write("http://maps.google.pt?q="+position.getLatitude()+","+position.getLongitude());
-        }
+        
+        
+        
         return position;
     }
 
