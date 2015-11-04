@@ -169,7 +169,6 @@ public class H02ProtocolDecoder extends BaseProtocolDecoder {
         if("VL1".equals(position.getVersion())){
         	channel.write("http://maps.google.pt?q="+position.getLatitude()+","+position.getLongitude());
         }
-        
         return position;
     }
 
